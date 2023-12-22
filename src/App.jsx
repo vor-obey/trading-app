@@ -27,12 +27,7 @@ function App() {
             path="/"
             element={
               <div
-                style={{
-                  height: "100vh",
-                  width: "100vw",
-                  marginTop: "22px",
-                  display: "flex",
-                }}
+                style={{ height: "100vh", width: "100vw", marginTop: "22px" }}
                 className="blockAnimation"
               >
                 <Graphic id="1" whatchlist={futures} />
