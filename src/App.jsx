@@ -8,6 +8,7 @@ import { useState } from "react";
 
 function App() {
   const [inProgress, setInProgress] = useState(false);
+  const [tab, setTab] = useState('BTCUSDT.P');
 
   const loader = (
     <div className="loaderContainer">
@@ -21,7 +22,6 @@ function App() {
         <div>
           <Topbar />
         </div>
-        {/*{loader}*/}
         <Routes>
           <Route
             path="/"
@@ -43,10 +43,11 @@ function App() {
                   height: "calc(100vh - 22px)",
                   width: "100vw",
                   marginTop: "22px",
+                  overflow: 'hidden'
                 }}
                 className="blockAnimation"
               >
-                <Graphic id="1" whatchlist={futures} fullscreen />
+                <Graphic id="1" whatchlist={futures} fullscreen isFutures />
               </div>
             }
           />
@@ -58,6 +59,7 @@ function App() {
                   height: "calc(100vh - 22px)",
                   width: "100vw",
                   marginTop: "22px",
+                  overflow: 'hidden'
                 }}
                 className="blockAnimation"
               >

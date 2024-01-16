@@ -1,36 +1,6 @@
 import css from './main.module.css';
 import { Link } from 'react-router-dom';
-import { Elements, ExpressCheckoutElement } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 
-
-const stripePromise = loadStripe('pk_test_51N3kRCIFPge3tKlLV7kvDUCcx23cZZhlxZxgoay7n1tSdCzREQ6mlOQOFedgvcSVVgd7Y0owCFLo8Hhkp5PWMYFR00ZU4u3iae');
-
-const CheckoutForm = () => {
-  return (
-    <form onSubmit={() => {}}>
-      <div id="checkout-page" style={{ marginTop: '20px' }}>
-        <ExpressCheckoutElement onConfirm={(v) => {
-          console.log(v)}} />
-      </div>
-    </form>
-  );
-};
-
-const PaypalPaymentMethod = () => {
-  const options = {
-    mode: 'payment',
-    currency: 'eur',
-    amount: 1000,
-    payment_method_types: ["paypal"]
-  };
-
-  return (
-    <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm />
-    </Elements>
-  );
-};
 export const Topbar = () => {
 
   return (
@@ -48,7 +18,6 @@ export const Topbar = () => {
         <li><Link to="/single-s">SINGLE SPOT</Link></li>
         <li><Link to="/single-f">SINGLE FUTURES</Link></li>
       </ul>
-      <PaypalPaymentMethod />
     </div>
   )
 }

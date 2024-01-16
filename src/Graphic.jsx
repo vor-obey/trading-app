@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Graphic = ({
   currency = "ETHUSDT",
@@ -10,9 +10,11 @@ const Graphic = ({
   whatchlist = [],
   orientation,
   fullscreen,
+  isFutures,
 }) => {
   const onLoadScriptRef = useRef(null);
   let tvScriptLoadingPromise = null;
+  const [current, setCurrent] = useState("BTCUSDT.P");
 
   useEffect(() => {
     onLoadScriptRef.current = createWidget;
@@ -41,7 +43,7 @@ const Graphic = ({
         window &&
           new window.TradingView.widget({
             autosize: true,
-            symbol: "ADAUSDT",
+            symbol: current,
             interval: period,
             timezone: "Europe/Vilnius",
             theme: "dark",
@@ -63,14 +65,58 @@ const Graphic = ({
     }
   }, [currency, watchList]);
 
+  const [list, setList] = useState([]);
+
   return fullscreen ? (
     <div
       style={{
         height: "100%",
         width: "100%",
+        display: "flex",
       }}
     >
       <div id={id} style={{ height: "100%", width: "100%" }} />
+      {isFutures ? (
+        <div
+          style={{
+            height: "calc(100vh - 22px)",
+            overflowY: "scroll",
+            overflowX: "hidden",
+          }}
+        >
+          <ul>
+            {whatchlist.map((cur) => (
+              <li
+                style={{
+                  background: list.includes(cur) ? "#2862FF" : "",
+                  cursor: "pointer",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+                key={cur}
+              >
+                <span
+                  onClick={() =>
+                    setList((prev) => {
+                      setCurrent(cur);
+                      return [...prev, cur];
+                    })
+                  }
+                >
+                  {cur}
+                </span>
+                <span
+                  onClick={() =>
+                    setList((prev) => prev.filter((el) => el !== cur))
+                  }
+                >
+                  D
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   ) : (
     <div
