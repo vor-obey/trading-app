@@ -82,10 +82,11 @@ const Graphic = ({
             height: "calc(100vh - 22px)",
             overflowY: "scroll",
             overflowX: "hidden",
+            width: 200,
           }}
         >
-          <ul>
-            {whatchlist.map((cur) => (
+          <ul style={{ padding: "0 15px" }}>
+            {whatchlist.sort().map((cur) => (
               <li
                 style={{
                   background: list.includes(cur) ? "#2862FF" : "",
@@ -97,6 +98,13 @@ const Graphic = ({
               >
                 <span
                   onClick={() =>
+                    setList((prev) => prev.filter((el) => el !== cur))
+                  }
+                >
+                  D
+                </span>
+                <span
+                  onClick={() =>
                     setList((prev) => {
                       setCurrent(cur);
                       return [...prev, cur];
@@ -104,13 +112,6 @@ const Graphic = ({
                   }
                 >
                   {cur}
-                </span>
-                <span
-                  onClick={() =>
-                    setList((prev) => prev.filter((el) => el !== cur))
-                  }
-                >
-                  D
                 </span>
               </li>
             ))}
